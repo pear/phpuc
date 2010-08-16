@@ -179,8 +179,11 @@ class GenerateApplication {
 }
 
 
+$name = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : "Net_IPv6";
+$source = isset($_SERVER['argv'][2]) ? $_SERVER['argv'][2] : dirname(__FILE__);
+$cruisecontrol = isset($_SERVER['argv'][3]) ? $_SERVER['argv'][3] : dirname(__FILE__);
 
-$p = new Package("Net_IPv7", dirname(__FILE__), dirname(__FILE__));
+$p = new Package($name, $source, $cruisecontrol);
 
 $app = new GenerateApplication(new Log_console("Output"));
 $app->execute($p);
