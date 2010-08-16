@@ -49,11 +49,11 @@ class GenerateApplication {
         ?>
 <project name="<?php print $p->package; ?>" buildafterfailed="false">
     <plugin name="svn" classname="net.sourceforge.cruisecontrol.sourcecontrols.SVN" /> 
-    <modificationset quietperiod="60">
+    <modificationset quietperiod="600">
         <svn localWorkingCopy="<?php print $p->source; ?>/<?php print $p->package; ?>"/>
     </modificationset> 
 
-    <schedule interval="120">
+    <schedule interval="1200">
         <ant anthome="apache-ant-1.7.0" buildfile="projects/${project.name}/build.xml"/>
     </schedule>
 
