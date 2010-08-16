@@ -5,6 +5,7 @@
 $ cd ~/
 $ svn co http://svn.php.net/repository/pear/ci/phpuc/trunk phpuc
 $ svn co http://svn.php.net/repository/pear/packages-all packages-all
+$ svn co http://svn.php.net/repository/pear2/packages-all pear2-packages-all
 $ cp phpuc/unit-test-results packages-all/unit-test-results
 $ cp phpuc/run-tests.sh .
 $ cp phpuc/migrate.php .
