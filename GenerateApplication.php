@@ -4,9 +4,11 @@ require_once 'NormalUnitTests.php';
 
 class GenerateApplication {
     protected $log;
+    protected $strategy;
 
-    public function __construct(Log $log) {
+    public function __construct(Log $log, $strategy) {
         $this->log = $log;
+        $this->strategy = $strategy;
     }
 
     function generate_project(Package $p) {
@@ -108,8 +110,7 @@ class GenerateApplication {
 
             $build = new DOMDocument();
 
-            $strategy = new NormalUnitTests();
-            $build->loadXML($strategy->build($p));
+            $build->loadXML($this->strategy->build($p));
 
             $project = new DOMDocument();
             $project->loadXML($this->generate_project($p));

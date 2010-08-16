@@ -1,6 +1,9 @@
 <?php
 class PEAR2PHPTUnitTests {
-    public function generate_build(Package $p) {
+    /**
+     * @todo Make this generate proper build.xml
+     */
+    public function build(Package $p) {
         ob_start();
         ?>
 <?xml version="1.0" encoding="UTF-8"?>
@@ -32,4 +35,27 @@ class PEAR2PHPTUnitTests {
         <?php
         return ob_get_clean();
     }
+
+    /**
+     * Iterate over a given directory to find all PHPT tests
+     *
+     * @todo Make this actually work
+     */
+    public function collect_directories(RecursiveDirectoryIterator $dir) {
+        $dirs = array();
+        foreach ($dir as $file) {
+            if (!is_dir($file)) {
+                continue;
+            }
+
+            $test_dir = (string)$file . '/tests/AllTests.php';
+
+            if (file_exists($test_dir)) {
+                $dirs[] = $file;
+            }
+        }
+
+        return $dirs;
+    }
+
 }

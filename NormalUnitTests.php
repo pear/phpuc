@@ -32,4 +32,24 @@ class NormalUnitTests {
         <?php
         return ob_get_clean();
     }
+
+    /**
+     * Iterate over a given directory to find all PHPUnit tests
+     */
+    public function collect_directories(RecursiveDirectoryIterator $dir) {
+        $dirs = array();
+        foreach ($dir as $file) {
+            if (!is_dir($file)) {
+                continue;
+            }
+
+            $test_dir = (string)$file . '/tests/AllTests.php';
+
+            if (file_exists($test_dir)) {
+                $dirs[] = $file;
+            }
+        }
+
+        return $dirs;
+    }
 }
