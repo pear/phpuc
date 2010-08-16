@@ -32,8 +32,26 @@ ln -s cruisecontrol-bin-2.8.3 cruisecontrol
 git clone git://github.com/phpundercontrol/phpUnderControl.git
 phpUnderControl/bin/phpuc.php install ~/cruisecontrol
 
+# Test you've got cruisecontrol working
+cd ~/cruisecontrol
+./cruisecontrol.sh
+
+# visit http://38.108.46.133:8080/cruisecontrol/buildresults/pear
+
+# Stop it
+pkill java
+
 # setup a specific project
+cd ~/phpuc
 php generate-project.php Net_IPv6 ~/packages-all ~/cruisecontrol 
+
+# and test it builds
+cd ~/cruisecontrol/projects/Net_IPv6
+ant
 
 # setup all phpunit compatable projects!
 php generate-all.php ~/packages-all ~/cruisecontrol 
+
+# Fire up cruisecontrol
+cd ~/cruisecontrol
+./cruisecontrol.sh
