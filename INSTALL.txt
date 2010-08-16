@@ -36,7 +36,7 @@ phpUnderControl/bin/phpuc.php install ~/cruisecontrol
 cd ~/cruisecontrol
 ./cruisecontrol.sh
 
-# visit http://38.108.46.133:8080/cruisecontrol/buildresults/pear
+# visit http://38.108.46.133:8080/cruisecontrol/
 
 # Stop it
 pkill java

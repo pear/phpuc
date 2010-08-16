@@ -23,13 +23,13 @@ class GenerateApplication {
     </target>
     <target name="php-codesniffer">
         <exec executable="phpcs" dir="${basedir}" output="<?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/checkstyle.xml">
-            <arg line="--report=checkstyle --standard=PEAR"/>
+            <arg line="--report=checkstyle --standard=PEAR <?php print $p->source; ?>/<?php print $p->package; ?>"/>
         </exec>
     </target>
     <!--
     <target name="phpmd">
         <exec executable="phpmd" dir="${basedir}">
-            <arg line="./src xml codesize,unusedcode,naming"/>
+            <arg line="<?php print $p->source; ?>/<?php print $p->package; ?> xml codesize,unusedcode,naming"/>
         </exec>
     </target>
     -->
