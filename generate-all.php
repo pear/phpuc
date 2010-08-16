@@ -33,7 +33,7 @@ $dir = new RecursiveDirectoryIterator($source);
 
 $dirs = collect_package_all_directories($dir);
 
-foreach ($dir as $file) {
+foreach ($dirs as $file) {
     $p = new Package($file->getFileName(), $file->getPath(), $cruisecontrol);
 
     $app = new GenerateApplication(new Log_console("Output"));
