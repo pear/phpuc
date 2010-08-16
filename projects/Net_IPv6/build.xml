@@ -6,7 +6,7 @@
     </exec>
   </target>
  <target name="php-codesniffer">
-         <exec executable="phpcs" dir="${basedir}" output="/home/clockwerx/cruisecontrol-bin-2.8.3/projects/pear/build/logs/checkstyle.xml">
+         <exec executable="phpcs" dir="${basedir}" output="/home/clockwerx/cruisecontrol/projects/pear/build/logs/checkstyle.xml">
                 <arg line="--report=checkstyle --standard=PEAR --ignore=src/autoload src/"/>
          </exec>
  </target>
@@ -17,7 +17,7 @@
   </target>
 <target name="phpunit">
 <exec executable="phpunit" dir="${basedir}" failonerror="on">
-<arg line="--log-junit /home/clockwerx/cruisecontrol-bin-2.8.3/projects/pear/build/logs/junit.xml tests/AllTests.php" /> 
+<arg line="--log-junit /home/clockwerx/cruisecontrol/projects/pear/build/logs/junit.xml tests/AllTests.php" /> 
 
 </exec>  </target>
 
