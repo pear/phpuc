@@ -26,13 +26,13 @@ class GenerateApplication {
             <arg line="--report=checkstyle --standard=PEAR <?php print $p->source; ?>/<?php print $p->package; ?>"/>
         </exec>
     </target>
-    <!--
+
     <target name="phpmd">
         <exec executable="phpmd" dir="${basedir}">
             <arg line="<?php print $p->source; ?>/<?php print $p->package; ?> xml codesize,unusedcode,naming"/>
         </exec>
     </target>
-    -->
+
     <target name="phpunit">
     <exec executable="phpunit" dir="${basedir}" failonerror="on">
         <arg line="--log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml tests/AllTests.php" /> 
