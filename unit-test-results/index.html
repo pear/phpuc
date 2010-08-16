@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>
+            PEAR Unit test results
+        </title>
+
+        <link rel="shortcut icon" href="http://pear.php.net/gifs/favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="http://pear.php.net/css/reset-fonts.css" />
+        <link rel="stylesheet" type="text/css" href="http://pear.php.net/css/style.css" />
+        <link rel="alternate" type="application/atom+xml" href="http://search.twitter.com/search.atom?q=%23pear-ci" title="Unit test results (tagged #pear-ci on twitter)" />
+        <style type="text/css">
+            body {
+                margin: 1.0em;
+            }
+
+            h2 {
+                margin-top: 2.0em;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>PEAR Unit test results</h1>
+        <p>These tests are updated from <a href="http://svn.php.net/viewvc/pear/packages/">PEAR's SVN</a> and run overnight.</p>
+    
+        <p>You too can add your tests.
+            <ul>
+                <li>All tests are simply placed into a <code>/tests/</code> directory.</li>
+                <li>phpunit tests need an AllTests.php</li>
+                <li>Tests should run from <code>your-package-in-svn/trunk</code>. Like: <br /> <code>clockwerx@clockwerx-desktop:~/pear-svn/packages/Crypt_RSA/trunk$ php tests/AllTests.php</code> <br /> or <code>clockwerx@clockwerx-desktop:~/pear-svn/packages/Crypt_RSA/trunk$ pear run-tests -r tests/</code></li>
+                <li>If your package need to be installed, you are doing it wrong. Fix the directory structure so it's like how the package is installed.</li>
+                <li>If your package needs an extension to be installed, you should make sure tests skip, not fail</li>
+            </ul>
+        </p>
+
+        <h2>Results</h2>
+        <p>See the <strong><a href="phpunit_results.txt">phpunit results</a></strong> and <strong><a href="phpt_results.txt">phpt results</a></strong> or the <a href="deprecated.txt">deprecated</a> bits.</p>
+
+
+        <h2>Other links and tools</h2>
+        <ul>
+            <li><a href="http://pear.cweiske.de/">cweiske's pear QA tools</a></li>
+            <li><a href="http://pear.cweiske.de/overview.htm">cweiske's Package overview</a></li>
+            <li><a href="http://pear.cweiske.de/showstats.php">cweiske's Global coding style results</a></li>
+            <li><a href="http://pear.php.net/bugs/stats.php">Package bug statistics</a></li>
+            <li><a href="http://pear.php.net/bugs/search.php?search_for=test&amp;boolean=0&amp;limit=All&amp;order_by=id&amp;direction=ASC&amp;cmd=display&amp;status=Open&amp;bug_type=All&amp;php_os=&amp;packagever=&amp;phpver=&amp;assign=&amp;maintain=&amp;author_email=&amp;bug_age=0&amp;bug_updated=0">Bugs about unit tests</a></li>
+            <li><a href="http://pear.php.net/bugs/search.php?search_for=PHPCS&amp;boolean=0&amp;limit=All&amp;order_by=id&amp;direction=ASC&amp;cmd=display&amp;status=Open&amp;bug_type=All&amp;php_os=&amp;packagever=&amp;phpver=&amp;assign=&amp;maintain=&amp;author_email=&amp;bug_age=0&amp;bug_updated=0">Requests about coding style</a></li>
+        </ul>
+    </body>
+</html>
