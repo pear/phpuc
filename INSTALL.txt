@@ -1,0 +1,18 @@
+# Installing cruisecontrol & unit test tools on test.pear.php.net
+
+# Checkout relevant code, copy files to the correct spots
+$ cd ~/
+$ svn co http://svn.php.net/repository/pear/ci/phpuc/trunk phpuc
+$ svn co http://svn.php.net/repository/pear/packages-all packages-all
+$ cp phpuc/unit-test-results packages-all/unit-test-results
+$ cp phpuc/run-tests.sh .
+$ cp phpuc/migrate.php .
+$ cp phpuc/tests.php packages-all
+$ chmod +x run-tests.sh
+$ chmod -R 777 packages-all/unit-test-results
+
+# Add a symlink from pearweb to your local folder
+$ ln -s /var/www/html/pear_www/pear.php.net/public_html/unit-test-results ~/packages-all/unit-test-results
+
+# Crontab:
+2  *  *   *   *     ./run-tests.sh
