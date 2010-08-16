@@ -24,7 +24,7 @@ class NormalUnitTests {
 
     <target name="phpunit">
     <exec executable="phpunit" dir="${basedir}" failonerror="on">
-        <arg line="--log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml tests/AllTests.php" /> 
+        <arg line="--log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml tests/" /> 
     </exec>
     </target>
     <target name="build" depends="checkout,php-codesniffer,phpmd,phpunit" />
