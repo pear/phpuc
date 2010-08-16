@@ -54,6 +54,7 @@ class GenerateApplication {
         $paths[] = $p->cruisecontrol . '/projects/' . $p->package;
         $paths[] = $p->cruisecontrol . '/projects/' . $p->package . '/build';
         $paths[] = $p->cruisecontrol . '/projects/' . $p->package . '/build/logs';
+        $paths[] = $p->cruisecontrol . '/projects/' . $p->package . '/build/coverage';
         $paths[] = $p->cruisecontrol . '/projects/' . $p->package . '/logs';
 
         foreach ($paths as $path) {
