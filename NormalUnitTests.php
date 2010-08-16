@@ -12,7 +12,7 @@ class NormalUnitTests {
     </target>
     <target name="php-codesniffer">
         <exec executable="phpcs" dir="${basedir}" output="<?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/checkstyle.xml">
-            <arg line="--report=checkstyle --standard=PEAR <?php print $p->source; ?>/<?php print $p->package; ?>"/>
+            <arg line="--report=checkstyle --standard=PEAR --ignore=tests <?php print $p->source; ?>/<?php print $p->package; ?>"/>
         </exec>
     </target>
 
