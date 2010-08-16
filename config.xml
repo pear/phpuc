@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cruisecontrol>
+<project name="pear" buildafterfailed="false">
+ <plugin name="svn" classname="net.sourceforge.cruisecontrol.sourcecontrols.SVN" /> 
+  <modificationset quietperiod="60">  <svn localWorkingCopy="/home/clockwerx/packages-all/Net_IPv6"/>  </modificationset> 
+
+ <schedule interval="120">  <ant anthome="apache-ant-1.7.0" buildfile="projects/${project.name}/build.xml"/>  </schedule> 
+  <log dir="logs/${project.name}">  <merge dir="projects/${project.name}/build/logs/"/>  </log> 
+
+ <publishers>
+ <artifactspublisher dir="projects/${project.name}/build/coverage" dest="artifacts/${project.name}" subdirectory="coverage"/>
+ <execute command="phpuc graph logs/${project.name} artifacts/${project.name}"/> 
+ </publishers> 
+</project>
+</cruisecontrol>
