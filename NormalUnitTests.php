@@ -43,7 +43,7 @@ class NormalUnitTests {
                 continue;
             }
 
-            $test_dir = (string)$file . '/tests/AllTests.php';
+            $test_dir = (string)$file . '/tests/';
 
             if (file_exists($test_dir)) {
                 $dirs[] = $file;

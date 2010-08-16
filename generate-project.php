@@ -17,5 +17,5 @@ $cruisecontrol = isset($_SERVER['argv'][3]) ? $_SERVER['argv'][3] : dirname(__FI
 
 $p = new Package($name, $source, $cruisecontrol);
 
-$app = new GenerateApplication(new Log_console("Output"));
+$app = new GenerateApplication(new Log_console("Output"), new NormalUnitTests());
 $app->execute($p);
