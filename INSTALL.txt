@@ -32,5 +32,8 @@ ln -s cruisecontrol-bin-2.8.3 cruisecontrol
 git clone git://github.com/phpundercontrol/phpUnderControl.git
 phpUnderControl/bin/phpuc.php install ~/cruisecontrol
 
-# setup a project
+# setup a specific project
 php generate-project.php Net_IPv6 ~/packages-all ~/cruisecontrol 
+
+# setup all phpunit compatable projects!
+php generate-all.php ~/packages-all ~/cruisecontrol 
