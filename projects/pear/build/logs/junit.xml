@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Net_IPv6 Tests" tests="31" assertions="33" failures="0" errors="1" time="0.041456">
+    <testsuite name="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" fullPackage="Net_IPv6" package="Net_IPv6" tests="31" assertions="33" failures="0" errors="1" time="0.041456">
+      <testcase name="testCheckIPv6WithPrefix" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="43" assertions="1" time="0.001366"/>
+      <testcase name="testIsInNetmaskNoNetmask" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="53" assertions="0" time="0.006068">
+        <error type="PHPUnit_Framework_Error_Notice">NetIPv6Test::testIsInNetmaskNoNetmask
+Non-static method PEAR::raiseError() should not be called statically, assuming $this from incompatible context
+
+/home/clockwerx/packages-all/Net_IPv6/Net/IPv6.php:272
+/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php:56
+</error>
+      </testcase>
+      <testcase name="testIsInNetmaskWithBitsAsParameter" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="64" assertions="1" time="0.001223"/>
+      <testcase name="testIsInNetmaskWithBitsInNetmask" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="75" assertions="1" time="0.001167"/>
+      <testcase name="testIsInNetmaskWithBitsInIP" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="86" assertions="1" time="0.001170"/>
+      <testcase name="testGetNetmaskTwoParameters" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="96" assertions="1" time="0.001143"/>
+      <testcase name="testGetNetmaskOneParameter" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="105" assertions="1" time="0.001144"/>
+      <testcase name="testGetAddressTypeLinkLocal" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="114" assertions="1" time="0.001034"/>
+      <testcase name="testGetAddressTypeUnassigned" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="123" assertions="1" time="0.001058"/>
+      <testcase name="testBin2Ip" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="132" assertions="1" time="0.000951"/>
+      <testcase name="testIp2BinUncompressed" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="149" assertions="1" time="0.001020"/>
+      <testcase name="testIp2BinCompressed" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="167" assertions="1" time="0.001080"/>
+      <testcase name="testBug4977" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="188" assertions="1" time="0.001157"/>
+      <testcase name="testBug3851" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="200" assertions="1" time="0.000964"/>
+      <testcase name="testBug3405" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="212" assertions="1" time="0.001133"/>
+      <testcase name="testBug14747_CompressShouldDoNothingOnCompressedIPs" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="223" assertions="2" time="0.000938"/>
+      <testcase name="testBug2802" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="243" assertions="1" time="0.002636"/>
+      <testcase name="testBug2803" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="255" assertions="1" time="0.001133"/>
+      <testcase name="testBug12442" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="265" assertions="2" time="0.001282"/>
+      <testcase name="testBug15947_IpTooLong" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="280" assertions="1" time="0.001402"/>
+      <testcase name="testCompress1" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="294" assertions="1" time="0.001697"/>
+      <testcase name="testCompress2" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="304" assertions="1" time="0.001189"/>
+      <testcase name="testCompress3" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="314" assertions="1" time="0.001074"/>
+      <testcase name="testCompressWithPrefixLength" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="324" assertions="1" time="0.001159"/>
+      <testcase name="testUncompress1" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="335" assertions="1" time="0.001036"/>
+      <testcase name="testUncompress2" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="345" assertions="1" time="0.000964"/>
+      <testcase name="testUncompress3" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="355" assertions="1" time="0.000980"/>
+      <testcase name="testUncompressWithPrefixLength" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="365" assertions="1" time="0.000995"/>
+      <testcase name="testGetPrefixLength" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="377" assertions="1" time="0.000947"/>
+      <testcase name="testRemovePrefixLength" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="388" assertions="1" time="0.000928"/>
+      <testcase name="testParseAddress" class="NetIPv6Test" file="/home/clockwerx/packages-all/Net_IPv6/tests/NetIPv6Test.php" line="396" assertions="2" time="0.001418"/>
+    </testsuite>
+  </testsuite>
+</testsuites>
