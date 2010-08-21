@@ -1,4 +1,5 @@
 <?php
+require_once 'Log.php';
 require_once 'Log/console.php';
 require_once 'Package.php';
 require_once 'GenerateApplication.php';
