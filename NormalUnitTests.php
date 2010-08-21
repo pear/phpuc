@@ -34,16 +34,15 @@ class NormalUnitTests {
     }
 
     public function getTestPath(Package $p) {
-        $path = $p->source . "/tests/AllTests.php";
+        $path = $p->source . "/" . $p->package . "/tests/AllTests.php";
         if (file_exists($path)) {
             return $path;
         }
 
-        $path = $p->source . "/tests/";
+        $path = $p->source . "/" . $p->package . "/tests/";
         if (file_exists($path)) {
             return $path;
         }
-
         return false;
     }
 

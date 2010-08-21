@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Net_IPv6" basedir="/home/clockwerx/packages-all/Net_IPv6" default="build">
- <target name="checkout">
-    <exec executable="svn" dir="${basedir}">
-      <arg line="up" />
+<project name="Net_IPv6" basedir="/home/clockwerx/phpuc/Net_IPv6" default="build">
+     <target name="checkout">
+        <exec executable="svn" dir="${basedir}">
+            <arg line="up"/>
+        </exec>
+    </target>
+    <target name="php-codesniffer">
+        <exec executable="phpcs" dir="${basedir}" output="/home/clockwerx/phpuc/projects/Net_IPv6/build/logs/checkstyle.xml">
+            <arg line="--report=checkstyle --standard=PEAR --ignore=tests /home/clockwerx/phpuc/Net_IPv6"/>
+        </exec>
+    </target>
+
+    <target name="phpmd">
+        <exec executable="phpmd" dir="${basedir}">
+            <arg line="/home/clockwerx/phpuc/Net_IPv6 xml codesize,unusedcode,naming"/>
+        </exec>
+    </target>
+
+    <target name="phpunit">
+    <exec executable="phpunit" dir="${basedir}" failonerror="on">
+        <arg line="--log-junit /home/clockwerx/phpuc/projects/Net_IPv6/build/logs/junit.xml "/> 
     </exec>
-  </target>
- <target name="php-codesniffer">
-         <exec executable="phpcs" dir="${basedir}" output="/home/clockwerx/cruisecontrol/projects/pear/build/logs/checkstyle.xml">
-                <arg line="--report=checkstyle --standard=PEAR --ignore=src/autoload src/"/>
-         </exec>
- </target>
-  <target name="phpmd">
-  <exec executable="phpmd" dir="${basedir}">
-  <arg line="./src xml codesize,unusedcode,naming"/>
-  </exec>
-  </target>
-<target name="phpunit">
-<exec executable="phpunit" dir="${basedir}" failonerror="on">
-<arg line="--log-junit /home/clockwerx/cruisecontrol/projects/pear/build/logs/junit.xml tests/AllTests.php" /> 
-
-</exec>  </target>
-
- <target name="build" depends="checkout,php-codesniffer,phpmd,phpunit" />
+    </target>
+    <target name="build" depends="checkout,php-codesniffer,phpmd,phpunit"/>
 </project>
-
