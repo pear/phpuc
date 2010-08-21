@@ -24,7 +24,7 @@ class NormalUnitTests {
 
     <target name="phpunit">
     <exec executable="phpunit" dir="${basedir}" failonerror="on">
-        <arg line="--log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml tests/" /> 
+        <arg line="--log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml <?php print $this->getTestPath($p); ?>" /> 
     </exec>
     </target>
     <target name="build" depends="checkout,php-codesniffer,phpmd,phpunit" />
@@ -33,8 +33,22 @@ class NormalUnitTests {
         return ob_get_clean();
     }
 
+    public function getTestPath(Package $p) {
+        $path = $file->source . "/tests/AllTests.php";
+        if (file_exists($path)) {
+            return $path;
+        }
+
+        $path = $file->source . "/tests/";
+        if (file_exists($path)) {
+            return $path;
+        }
+
+        return false;
+    }
+
     /**
-     * Iterate over a given directory to find all PHPUnit tests
+     * Iterate over a given directory to find all PHPUnit tests, and phpt tests
      */
     public function collect_directories(RecursiveDirectoryIterator $dir) {
         $dirs = array();
@@ -43,10 +57,18 @@ class NormalUnitTests {
                 continue;
             }
 
+            $test_dir = (string)$file . '/tests/AllTests.php';
+
+            if (file_exists($test_dir)) {
+                $dirs[] = $file;
+                continue;
+            }
+
             $test_dir = (string)$file . '/tests/';
 
             if (file_exists($test_dir)) {
                 $dirs[] = $file;
+                continue;
             }
         }
 
