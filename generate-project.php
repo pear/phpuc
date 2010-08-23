@@ -15,8 +15,9 @@ require_once 'GenerateApplication.php';
 $name = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : "Net_IPv6";
 $source = isset($_SERVER['argv'][2]) ? $_SERVER['argv'][2] : dirname(__FILE__);
 $cruisecontrol = isset($_SERVER['argv'][3]) ? $_SERVER['argv'][3] : dirname(__FILE__);
+$pyrus = isset($_SERVER['argv'][4]) ? $_SERVER['argv'][4] : null;
 
 $p = new Package($name, $source, $cruisecontrol);
 
-$app = new GenerateApplication(new Log_console("Output"), new NormalUnitTests());
+$app = new GenerateApplication(new Log_console("Output"), new NormalUnitTests(), $pyrus);
 $app->execute($p);

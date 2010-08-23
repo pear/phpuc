@@ -29,7 +29,12 @@ class GenerateApplication {
     </log> 
 
     <publishers>
-        <artifactspublisher dir="projects/${project.name}/build/coverage" dest="artifacts/${project.name}" subdirectory="coverage"/>
+        <?php if (extension_loaded('xdebug')) { ?>
+            <artifactspublisher dir="projects/${project.name}/build/coverage" dest="artifacts/${project.name}" subdirectory="coverage"/>
+        <?php } ?>
+        <?php if ($p->pyrus) { ?>
+            <artifactspublisher dir="projects/${project.name}/build/package" dest="artifacts/${project.name}" subdirectory="package"/>
+        <?php } ?>
         <execute command="phpuc graph logs/${project.name} artifacts/${project.name}"/> 
     </publishers> 
 </project>
@@ -55,6 +60,7 @@ class GenerateApplication {
         $paths[] = $p->cruisecontrol . '/projects/' . $p->package . '/build';
         $paths[] = $p->cruisecontrol . '/projects/' . $p->package . '/build/logs';
         $paths[] = $p->cruisecontrol . '/projects/' . $p->package . '/build/coverage';
+        $paths[] = $p->cruisecontrol . '/projects/' . $p->package . '/build/package';
         $paths[] = $p->cruisecontrol . '/projects/' . $p->package . '/logs';
 
         foreach ($paths as $path) {

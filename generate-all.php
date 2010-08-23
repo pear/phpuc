@@ -7,6 +7,7 @@ require_once 'GenerateApplication.php';
 
 $source = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : dirname(__FILE__);
 $cruisecontrol = isset($_SERVER['argv'][2]) ? $_SERVER['argv'][2] : dirname(__FILE__);
+$pyrus = isset($_SERVER['argv'][3]) ? $_SERVER['argv'][3] : null;
 
 $dir = new RecursiveDirectoryIterator($source);
 
@@ -16,6 +17,6 @@ $app = new GenerateApplication(new Log_console("Output"), $strategy);
 $dirs = $strategy->collect_directories($dir);
 
 foreach ($dirs as $file) {
-    $p = new Package($file->getFileName(), $file->getPath(), $cruisecontrol);
+    $p = new Package($file->getFileName(), $file->getPath(), $cruisecontrol, $pyrus);
     $app->execute($p);
 }

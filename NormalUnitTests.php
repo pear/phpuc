@@ -18,16 +18,37 @@ class NormalUnitTests {
 
     <target name="phpmd">
         <exec executable="phpmd" dir="${basedir}">
-            <arg line="<?php print $p->source; ?>/<?php print $p->package; ?> xml codesize,unusedcode,naming"/>
+            <arg line="<?php print $p->source; ?>/<?php print $p->package; ?>/ xml codesize,unusedcode,naming"/>
         </exec>
     </target>
 
     <target name="phpunit">
-    <exec executable="phpunit" dir="${basedir}" failonerror="on">
-        <arg line="--log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml <?php print $this->getTestPath($p); ?>" /> 
-    </exec>
+        <exec executable="phpunit" dir="${basedir}" failonerror="on">
+            <?php if (extension_loaded('xdebug')) { ?>
+                <arg line="--log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml 
+                            --coverage-xml <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/phpunit.coverage.xml
+                            --coverage-html <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/coverage 
+                            <?php print $this->getTestPath($p); ?>" /> 
+            <?php } else { ?>
+                <arg line="--log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml 
+                            <?php print $this->getTestPath($p); ?>" /> 
+            <?php } ?>
+        </exec>
     </target>
+
+    <?php if ($p->pyrus) { ?>
+    <target name="package">
+        <exec executable="php <?php $p->pyrus ?>" dir="${basedir}">
+            <arg line="package -o <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/package/trunk.tar.gz" />
+        </exec>
+    </target>
+    <?php } ?>
+
+    <?php if ($p->pyrus) { ?>
+    <target name="build" depends="checkout,php-codesniffer,phpmd,phpunit,package" />
+    <?php } else { ?>
     <target name="build" depends="checkout,php-codesniffer,phpmd,phpunit" />
+    <?php } ?>
 </project>
         <?php
         return ob_get_clean();
