@@ -18,7 +18,7 @@ class NormalUnitTests {
 
     <target name="phpmd">
         <exec executable="phpmd" dir="${basedir}">
-            <arg line="${basedir} src xml codesize,unusedcode,naming --reportfile <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/pmd.xml"/>
+            <arg line="${basedir} xml codesize,unusedcode,naming --reportfile <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/pmd.xml"/>
         </exec>
     </target>
 
