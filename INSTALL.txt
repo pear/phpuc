@@ -12,6 +12,7 @@ $ cp phpuc/migrate.php .
 $ cp phpuc/tests.php packages-all
 $ chmod +x run-tests.sh
 $ chmod -R 777 packages-all/unit-test-results
+$ sudo pear install phpunit/phpcpd
 
 # Add a symlink from pearweb to your local folder
 $ ln -s /var/www/html/pear_www/pear.php.net/public_html/unit-test-results ~/packages-all/unit-test-results

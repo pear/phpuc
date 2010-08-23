@@ -22,6 +22,12 @@ class NormalUnitTests {
         </exec>
     </target>
 
+    <target name="phpcpd">
+        <exec executable="phpcpd" dir="${basedir}">
+            <arg line="${basedir} --log-pmd <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/cpd.xml"/>
+        </exec>
+    </target>
+
     <target name="phpunit">
         <exec executable="phpunit" dir="${basedir}" failonerror="on">
             <?php if (extension_loaded('xdebug')) { ?>
@@ -45,9 +51,9 @@ class NormalUnitTests {
     <?php } ?>
 
     <?php if ($p->pyrus) { ?>
-    <target name="build" depends="checkout,php-codesniffer,phpmd,phpunit,package" />
+    <target name="build" depends="checkout,php-codesniffer,phpmd,phpcpd,phpunit,package" />
     <?php } else { ?>
-    <target name="build" depends="checkout,php-codesniffer,phpmd,phpunit" />
+    <target name="build" depends="checkout,php-codesniffer,phpmd,phpcpd,phpunit" />
     <?php } ?>
 </project>
         <?php
