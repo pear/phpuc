@@ -38,8 +38,8 @@ class NormalUnitTests {
 
     <?php if ($p->pyrus) { ?>
     <target name="package">
-        <exec executable="/usr/local/bin/php <?php $p->pyrus ?>" dir="${basedir}">
-            <arg line="package -o <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/package/trunk.tar.gz" />
+        <exec executable="php" dir="${basedir}">
+            <arg line="<?php print $p->pyrus ?> package -o <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/package/trunk.tar.gz" />
         </exec>
     </target>
     <?php } ?>
