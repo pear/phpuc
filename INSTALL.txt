@@ -57,3 +57,6 @@ php generate-all.php ~/packages-all ~/cruisecontrol ~/pyrus.phar
 # Fire up cruisecontrol
 cd ~/cruisecontrol
 ./cruisecontrol.sh
+
+# Make sure you have PFM installed
+pear install PEAR_PackageFileManager

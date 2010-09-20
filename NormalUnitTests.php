@@ -44,8 +44,17 @@ class NormalUnitTests {
 
     <?php if ($p->pyrus) { ?>
     <target name="package">
+        <!-- Todo: refactor this, not everyone lives in /home/clockwerx -->
+        <exec executable="php" dir="${basedir}">
+            <arg line="/home/clockwerx/phpuc/make-package.php ${basedir}" />
+        </exec>
+
         <exec executable="php" dir="${basedir}"  failonerror="on">
             <arg line="<?php print $p->pyrus ?> package -o <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/package/trunk.tar.gz" />
+        </exec>
+
+        <exec executable="svn" dir="${basedir}">
+            <arg line="revert package.xml" />
         </exec>
     </target>
     <?php } ?>
