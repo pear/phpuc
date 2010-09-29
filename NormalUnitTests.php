@@ -32,11 +32,12 @@ class NormalUnitTests {
         <exec executable="phpunit" dir="${basedir}" failonerror="on">
             <?php if (extension_loaded('xdebug')) { ?>
                 <arg line="--log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml 
+                            <?php print $this->getBootstrap($p); ?>
                             --coverage-xml <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/phpunit.coverage.xml
                             --coverage-html <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/coverage 
                             <?php print $this->getTestPath($p); ?>" /> 
             <?php } else { ?>
-                <arg line="--log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml 
+                <arg line="--log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml <?php print $this->getBootstrap($p); ?>
                             <?php print $this->getTestPath($p); ?>" /> 
             <?php } ?>
         </exec>
@@ -80,6 +81,14 @@ class NormalUnitTests {
             return $path;
         }
         return false;
+    }
+
+    /** @todo Refactor this when 10 other packages have bootstraps? */
+    public function getBootstrap(Package $p) {
+        if ($p->package == "Mail_Queue") {
+            return "--bootstrap " . $p->source . "/" . $p->package . "/tests/TestInit.php";
+        }
+        return "";
     }
 
     /**
