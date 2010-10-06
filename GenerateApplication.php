@@ -20,7 +20,7 @@ class GenerateApplication {
         <svn localWorkingCopy="<?php print $p->source; ?>/<?php print $p->package; ?>"/>
     </modificationset> 
 
-    <schedule interval="1200">
+    <schedule interval="120">
         <ant anthome="apache-ant-1.7.0" buildfile="projects/${project.name}/build.xml"/>
     </schedule>
 
