@@ -31,13 +31,15 @@ class NormalUnitTests {
     <target name="phpunit">
         <exec executable="phpunit" dir="${basedir}" failonerror="on">
             <?php if (extension_loaded('xdebug')) { ?>
-                <arg line="-d error_reporting='E_ALL &amp; ~E_STRICT' --log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml 
+                <arg line="-d error_reporting='E_ALL &amp; ~E_STRICT'
+                             --log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml 
                             <?php print $this->getBootstrap($p); ?>
                             --coverage-xml <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/phpunit.coverage.xml
                             --coverage-html <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/coverage 
                             <?php print $this->getTestPath($p); ?>" /> 
             <?php } else { ?>
-                <arg line="--log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml <?php print $this->getBootstrap($p); ?>
+                <arg line="-d error_reporting='E_ALL &amp; ~E_STRICT'
+                          --log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml <?php print $this->getBootstrap($p); ?>
                             <?php print $this->getTestPath($p); ?>" /> 
             <?php } ?>
         </exec>
