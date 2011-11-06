@@ -198,8 +198,6 @@ class GenerateApplication {
     function install_project(Package $p, DOMDocument $build, DOMDocument $project) {
         //$build->save($p->jenkins . '/jobs/' . $p->package . '/build.xml');
 
-        $new_node_list = $project->getElementsByTagName("project");
-
         $existing_projects = array();
         $dir = new DirectoryIterator($p->jenkins . '/jobs/');
         foreach ($dir as $file) {
