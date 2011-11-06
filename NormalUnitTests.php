@@ -5,26 +5,21 @@ class NormalUnitTests {
         ?>
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="<?php print $p->package; ?>" basedir="<?php print $p->source; ?>/<?php print $p->package; ?>" default="build">
-     <target name="checkout">
-        <exec executable="svn" dir="${basedir}">
-            <arg line="up" />
-        </exec>
-    </target>
     <target name="php-codesniffer">
-        <exec executable="phpcs" dir="${basedir}" output="<?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/checkstyle.xml">
+        <exec executable="phpcs" dir="${basedir}" output="<?php print $p->jenkins; ?>/projects/<?php print $p->package; ?>/build/logs/checkstyle.xml">
             <arg line="--report=checkstyle --standard=PEAR --ignore=tests <?php print $p->source; ?>/<?php print $p->package; ?>"/>
         </exec>
     </target>
 
     <target name="phpmd">
         <exec executable="phpmd" dir="${basedir}">
-            <arg line="${basedir} xml codesize,unusedcode,naming --reportfile <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/pmd.xml"/>
+            <arg line="${basedir} xml codesize,unusedcode,naming --reportfile <?php print $p->jenkins; ?>/projects/<?php print $p->package; ?>/build/logs/pmd.xml"/>
         </exec>
     </target>
 
     <target name="phpcpd">
         <exec executable="phpcpd" dir="${basedir}">
-            <arg line="${basedir} --log-pmd <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/cpd.xml"/>
+            <arg line="${basedir} --log-pmd <?php print $p->jenkins; ?>/projects/<?php print $p->package; ?>/build/logs/cpd.xml"/>
         </exec>
     </target>
 
@@ -32,14 +27,14 @@ class NormalUnitTests {
         <exec executable="phpunit" dir="${basedir}" failonerror="on">
             <?php if (extension_loaded('xdebug')) { ?>
                 <arg line="-d error_reporting='E_ALL &amp; ~E_STRICT'
-                             --log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml 
+                             --log-junit build/logs/junit.xml 
                             <?php print $this->getBootstrap($p); ?>
-                            --coverage-xml <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/phpunit.coverage.xml
-                            --coverage-html <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/coverage 
+                            --coverage-clover build/logs/clover.xml
+                            --coverage-html build/coverage 
                             <?php print $this->getTestPath($p); ?>" /> 
             <?php } else { ?>
                 <arg line="-d error_reporting='E_ALL &amp; ~E_STRICT'
-                          --log-junit <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/logs/junit.xml <?php print $this->getBootstrap($p); ?>
+                          --log-junit build/logs/junit.xml <?php print $this->getBootstrap($p); ?>
                             <?php print $this->getTestPath($p); ?>" /> 
             <?php } ?>
         </exec>
@@ -53,7 +48,7 @@ class NormalUnitTests {
         </exec>
 
         <exec executable="php" dir="${basedir}"  failonerror="on">
-            <arg line="<?php print $p->pyrus ?> package -o <?php print $p->cruisecontrol; ?>/projects/<?php print $p->package; ?>/build/package/trunk.tar.gz" />
+            <arg line="<?php print $p->pyrus ?> package -o <?php print $p->jenkins; ?>/projects/<?php print $p->package; ?>/build/package/trunk.tar.gz" />
         </exec>
 
         <exec executable="svn" dir="${basedir}">
@@ -63,9 +58,9 @@ class NormalUnitTests {
     <?php } ?>
 
     <?php if ($p->pyrus) { ?>
-    <target name="build" depends="checkout,php-codesniffer,phpmd,phpcpd,phpunit,package" />
+    <target name="build" depends="php-codesniffer,phpmd,phpcpd,phpunit,package" />
     <?php } else { ?>
-    <target name="build" depends="checkout,php-codesniffer,phpmd,phpcpd,phpunit" />
+    <target name="build" depends="php-codesniffer,phpmd,phpcpd,phpunit" />
     <?php } ?>
 </project>
         <?php

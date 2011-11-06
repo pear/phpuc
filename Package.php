@@ -16,4 +16,15 @@ class Package {
         $this->jenkins = $jenkins;
         $this->pyrus = $pyrus;
     }
+
+    public function determineSCM() {
+        if (file_exists($this->source . '/.git')) {
+            return "git";
+        }
+        if (file_exists($this->source . '/.svn')) {
+            return "svn";
+        }
+
+        return null;
+    }
 }

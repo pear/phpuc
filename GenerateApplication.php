@@ -4,11 +4,11 @@ require_once 'NormalUnitTests.php';
 
 class GenerateApplication {
     protected $log;
-    protected $strategy;
+    protected $build_strategy;
 
-    public function __construct(Log $log, $strategy) {
+    public function __construct(Log $log, $build_strategy) {
         $this->log = $log;
-        $this->strategy = $strategy;
+        $this->build_strategy = $build_strategy;
     }
 
     function generate_project_svn(Package $p) {
@@ -19,11 +19,6 @@ class GenerateApplication {
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties>
-    <com.coravy.hudson.plugins.github.GithubProjectProperty>
-      <projectUrl>http://github.com/pear/Log/</projectUrl>
-    </com.coravy.hudson.plugins.github.GithubProjectProperty>
-  </properties>
   <scm class="hudson.scm.SubversionSCM">
     <locations>
       <hudson.scm.SubversionSCM_-ModuleLocation>
@@ -170,20 +165,20 @@ class GenerateApplication {
     }
 
     public function create_project(Package $p) {
-        if (!file_exists($p->cruisecontrol)) {
-            throw new Exception("Doesnt exist: " . $p->cruisecontrol);
+        if (!file_exists($p->jenkins)) {
+            throw new Exception("Doesnt exist: " . $p->jenkins);
         }
-        if (!file_exists($p->cruisecontrol . '/jobs/')) {
-            throw new Exception("Doesnt exist: " . $p->cruisecontrol . "/jobs");
+        if (!file_exists($p->jenkins . '/jobs/')) {
+            throw new Exception("Doesnt exist: " . $p->jenkins . "/jobs");
         }
 
-        if (!is_writable($p->cruisecontrol . '/jobs/')) {
-            throw new Exception("Not writable: " . $p->cruisecontrol . "/jobs");
+        if (!is_writable($p->jenkins . '/jobs/')) {
+            throw new Exception("Not writable: " . $p->jenkins . "/jobs");
         }
 
         // Required directories
         $paths = array();
-        $paths[] = $p->cruisecontrol . '/jobs/' . $p->package;
+        $paths[] = $p->jenkins . '/jobs/' . $p->package;
 
         foreach ($paths as $path) {
             if (!file_exists($path)) {
@@ -201,35 +196,21 @@ class GenerateApplication {
      * Install both project / build documents
      */
     function install_project(Package $p, DOMDocument $build, DOMDocument $project) {
-        $build->save($p->cruisecontrol . '/projects/' . $p->package . '/build.xml');
-
-        $config = new DOMDocument();
-        $config->load($p->cruisecontrol . '/config.xml');
+        //$build->save($p->jenkins . '/jobs/' . $p->package . '/build.xml');
 
         $new_node_list = $project->getElementsByTagName("project");
-        $old_node_list = $config->getElementsByTagName("project");
 
         $existing_projects = array();
-        for ($i = 0; $i < $old_node_list->length; $i++) {
-            $node = $old_node_list->item($i);
-            $existing_projects[] = $node->getAttribute("name");
-        }
-
-        $node_list = $project->getElementsByTagName("project");
-        for ($i = 0; $i < $node_list->length; $i++) {
-            $node = $node_list->item($i);
-
-            if (in_array($node->getAttribute("name"), $existing_projects)) {
-                $this->log->log($node->getAttribute("name") . " already exists in config.xml, skipping");
+        $dir = new DirectoryIterator($p->jenkins . '/jobs/');
+        foreach ($dir as $file) {
+            if (!$file->isDir() || (string)$file == '.' || (string)$file == '..') {
                 continue;
             }
 
-            $new_node = $config->importNode($node, true);
-
-            $config->getElementsByTagName('cruisecontrol')->item(0)->appendChild($new_node);
+            $existing_projects[] = (string)$file;
         }
 
-        $config->save($p->cruisecontrol . '/config.xml');
+        $project->save($p->jenkins . '/jobs/' . $p->package . '/config.xml');
     }
 
 
@@ -239,12 +220,18 @@ class GenerateApplication {
 
             $build = new DOMDocument();
 
-            $build->loadXML($this->strategy->build($p));
+            $build->loadXML($this->build_strategy->build($p));
 
             $project = new DOMDocument();
-            $project->loadXML($this->generate_project_git($p));
+            if  ($p->determineSCM() == 'git') {
+                $project->loadXML($this->generate_project_git($p));
+                $this->install_project($p, $build, $project);
+            }
 
-            $this->install_project($p, $build, $project);
+            if  ($p->determineSCM() == 'svn') {
+                $project->loadXML($this->generate_project_svn($p));
+                $this->install_project($p, $build, $project);
+            }
 
         } catch (Exception $e) {
             $this->log->log($e->getMessage());
