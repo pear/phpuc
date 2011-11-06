@@ -96,7 +96,7 @@ foreach ($packages as $package) {
 }
 $end = time();
 $minutes = ($end - $start) / 60;
-file_put_contents($file_phpunit, "\n\nFINISHED!  It took $minutes minutes.");
+file_put_contents($file_phpunit, "\n\nFINISHED!  It took $minutes minutes.", FILE_APPEND);
 
 
 if (file_exists($file_phpt)) {
@@ -110,4 +110,4 @@ foreach ($packages as $package) {
 }
 $end = time();
 $minutes = ($end - $start) / 60;
-file_put_contents($file_phpt, "\n\nFINISHED!  It took $minutes minutes.");
+file_put_contents($file_phpt, "\n\nFINISHED!  It took $minutes minutes.", FILE_APPEND);
