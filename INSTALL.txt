@@ -2,25 +2,21 @@
 
 # Old test runner
 # Checkout relevant code, copy files to the correct spots
-$ cd ~/
-$ svn co http://svn.php.net/repository/pear/ci/phpuc/trunk phpuc
-$ svn co http://svn.php.net/repository/pear/packages-all packages-all
-$ svn co http://svn.php.net/repository/pear2/packages-all pear2-packages-all
-$ php phpuc/checkout-github.php pear
-$ cp phpuc/unit-test-results packages-all/unit-test-results
-$ cp phpuc/run-tests.sh .
-$ cp phpuc/migrate.php .
-$ cp phpuc/tests.php packages-all
+$ git clone git://github.com/pear/phpuc.git
+$ cd phpuc
+$ svn co https://svn.php.net/repository/pear/packages-all packages-all
+$ svn co https://svn.php.net/repository/pear2/packages-all pear2-packages-all
+$ php checkout-github.php pear
 $ chmod +x run-tests.sh
 $ chmod -R 777 packages-all/unit-test-results
 $ sudo pear install phpunit/phpcpd
 
 # Add a symlink from pearweb to your local folder
 # TODO Rethink?
-$ ln -s /var/www/html/pear_www/pear.php.net/public_html/unit-test-results ~/packages-all/unit-test-results
+$ ln -s /var/www/html/pear_www/pear.php.net/public_html/unit-test-results packages-all/unit-test-results
 
 # Crontab:
-2  *  *   *   *     ./run-tests.sh
+2  *  *   *   *     /path/to/phpuc/run-tests.sh
 
 sudo apt-get install sun-java6-jdk ant git-core
 ln -s /usr/bin/java /bin/java
@@ -34,15 +30,15 @@ apt-get install jenkins
 /etc/init.d/jenkins stop
 
 # setup a specific project
-cd ~/phpuc
+# Assumes you are already in the phpuc directory.
 # SVN
-php generate-project.php Net_IPv6 ~/packages-all /var/lib/jenkins 
+php generate-project.php Net_IPv6 packages-all /var/lib/jenkins 
 # GIT
-php generate-project.php Log ~/github-pear-all /var/lib/jenkins
+php generate-project.php Log github-pear-all /var/lib/jenkins
 
 # setup all phpunit compatable projects!
-php generate-all.php ~/packages-all /var/lib/jenkins ~/pyrus.phar
-php generate-all.php ~/github-pear-all /var/lib/jenkins ~/pyrus.phar
+php generate-all.php packages-all /var/lib/jenkins pyrus.phar
+php generate-all.php github-pear-all /var/lib/jenkins pyrus.phar
 
 /etc/init.d/jenkins restart
 
