@@ -21,14 +21,14 @@
     </head>
     <body>
         <h1>PEAR Unit test results</h1>
-        <p>These tests are updated from <a href="http://svn.php.net/viewvc/pear/packages/">PEAR's SVN</a> and run overnight.</p>
+        <p>These tests are updated from PEAR's <a href="https://svn.php.net/viewvc/pear/packages/">subversion server</a> and <a href="https://github.com/pear/">GitHub repository</a> before each run.</p>
 
-        <h2>Cruise Control</h2>
-        <p>There's also <a href="http://test.pear.php.net:8080/cruisecontrol/">cruise control</a> running on this machine.</p>
+        <h2>Jenkins</h2>
+        <p>There's also <a href="http://test.pear.php.net:8080/">Jenkins instance</a> running on this machine.</p>
     
         <p>You too can add your tests.
             <ul>
-                <li>All tests are simply placed into a <code>/tests/</code> directory.</li>
+                <li>All tests are simply placed into a <code>/tests/</code> directory inside each package.</li>
                 <li>phpunit tests need an AllTests.php</li>
                 <li>Tests should run from <code>your-package-in-svn/trunk</code>. Like: <br /> <code>clockwerx@clockwerx-desktop:~/pear-svn/packages/Crypt_RSA/trunk$ php tests/AllTests.php</code> <br /> or <code>clockwerx@clockwerx-desktop:~/pear-svn/packages/Crypt_RSA/trunk$ pear run-tests -r tests/</code></li>
                 <li>If your package need to be installed, you are doing it wrong. Fix the directory structure so it's like how the package is installed.</li>
@@ -47,8 +47,8 @@
             <li><a href="http://pear.cweiske.de/overview.htm">cweiske's Package overview</a></li>
             <li><a href="http://pear.cweiske.de/showstats.php">cweiske's Global coding style results</a></li>
             <li><a href="http://pear.php.net/bugs/stats.php">Package bug statistics</a></li>
-            <li><a href="http://pear.php.net/bugs/search.php?search_for=test&amp;boolean=0&amp;limit=All&amp;order_by=id&amp;direction=ASC&amp;cmd=display&amp;status=Open&amp;bug_type=All&amp;php_os=&amp;packagever=&amp;phpver=&amp;assign=&amp;maintain=&amp;author_email=&amp;bug_age=0&amp;bug_updated=0">Bugs about unit tests</a></li>
-            <li><a href="http://pear.php.net/bugs/search.php?search_for=PHPCS&amp;boolean=0&amp;limit=All&amp;order_by=id&amp;direction=ASC&amp;cmd=display&amp;status=Open&amp;bug_type=All&amp;php_os=&amp;packagever=&amp;phpver=&amp;assign=&amp;maintain=&amp;author_email=&amp;bug_age=0&amp;bug_updated=0">Requests about coding style</a></li>
+            <li><a href="https://pear.php.net/bugs/search.php?search_for=test&amp;boolean=0&amp;limit=All&amp;order_by=id&amp;direction=ASC&amp;cmd=display&amp;status=Open&amp;bug_type=All&amp;php_os=&amp;packagever=&amp;phpver=&amp;assign=&amp;maintain=&amp;author_email=&amp;bug_age=0&amp;bug_updated=0">Bugs about unit tests</a></li>
+            <li><a href="https://pear.php.net/bugs/search.php?search_for=PHPCS&amp;boolean=0&amp;limit=All&amp;order_by=id&amp;direction=ASC&amp;cmd=display&amp;status=Open&amp;bug_type=All&amp;php_os=&amp;packagever=&amp;phpver=&amp;assign=&amp;maintain=&amp;author_email=&amp;bug_age=0&amp;bug_updated=0">Requests about coding style</a></li>
         </ul>
     </body>
 </html>
