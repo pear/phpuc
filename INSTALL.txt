@@ -40,20 +40,21 @@ $ sudo apt-get install jenkins
 
 
 # Stop it
-/etc/init.d/jenkins stop
+$ sudo /etc/init.d/jenkins stop
 
 # setup a specific project
 # Assumes you are already in the phpuc directory.
 # SVN
-php generate-project.php Net_IPv6 packages-all /var/lib/jenkins 
+$ sudo php generate-project.php Net_IPv6 packages-all /var/lib/jenkins 
 # GIT
-php generate-project.php Log github-pear-all /var/lib/jenkins
+$ sudo php generate-project.php Log github-pear-all /var/lib/jenkins
 
 # setup all phpunit compatable projects!
-php generate-all.php packages-all /var/lib/jenkins pyrus.phar
-php generate-all.php github-pear-all /var/lib/jenkins pyrus.phar
+$ sudo php generate-all.php packages-all /var/lib/jenkins pyrus.phar
+$ sudo php generate-all.php github-pear-all /var/lib/jenkins pyrus.phar
 
-/etc/init.d/jenkins restart
+$ sudo /etc/init.d/jenkins restart
+
 
 # Make sure you have PFM installed
 pear install PEAR_PackageFileManager
