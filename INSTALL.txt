@@ -7,7 +7,6 @@ $ cd phpuc
 $ svn co https://svn.php.net/repository/pear/packages-all packages-all
 $ svn co https://svn.php.net/repository/pear2/packages-all pear2-packages-all
 $ php checkout-github.php pear
-$ chmod +x run-tests.sh
 $ chmod -R 777 packages-all/unit-test-results
 $ sudo pear install phpunit/phpcpd
 
