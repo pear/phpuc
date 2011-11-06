@@ -24,7 +24,6 @@ function collect_package_directories(RecursiveDirectoryIterator $dir) {
             }
         }
     }
-
     return $dirs;
 }
 
@@ -38,9 +37,7 @@ function collect_package_all_directories(RecursiveDirectoryIterator $dir) {
             }
         }
     }
-
     return $dirs;
-
 }
 
 function run_phpunit_tests($path, $output_path) {
@@ -66,7 +63,7 @@ function run_pear_tests($path, $output_path) {
 }
 
 
-$output_dir = dirname(__FILE__) . '/unit-test-results/';
+$output_dir = __DIR__ . '/packages-all/unit-test-results/';
 if (!file_exists($output_dir)) {
     if (!mkdir($output_dir, 0777)) {
         die("Failed to create " . $output_dir);
@@ -78,10 +75,12 @@ $file_phpt = $output_dir . 'phpt_results.txt';
 $time = date(DATE_ATOM);
 
 
-$dir = new RecursiveDirectoryIterator(dirname(__FILE__));
-if (basename(dirname(__FILE__)) == 'packages-all') {
+$packages_all_dir = __DIR__ . '/packages-all';
+if (is_dir($packages_all_dir)) {
+    $dir = new RecursiveDirectoryIterator($packages_all_dir);
     $packages = collect_package_all_directories($dir);
 } else {
+    $dir = new RecursiveDirectoryIterator(__DIR__);
     $packages = collect_package_directories($dir);
 }
 
