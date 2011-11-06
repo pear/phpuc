@@ -12,7 +12,12 @@ $debug = isset($_SERVER['argv'][2]) && $_SERVER['argv'][2] == '--debug';
 $result = json_decode(file_get_contents('https://github.com/api/v2/json/organizations/' . $organisation . '/public_repositories'));
 foreach ($result as $data) {
     foreach ($data as $item) {
-        $cmd = "git clone git://github.com/" . $organisation . "/" . $item->name . ".git github-" . $organisation . "-all/" . $item->name . "\n";
+        $path = "github-" . $organisation . "-all/" . $item->name;
+        if (file_exists($path)) {
+            $cmd = "cd " . $path . " && git pull && cd " . getcwd() . "\n";        
+        } else  {
+            $cmd = "git clone git://github.com/" . $organisation . "/" . $item->name . ".git " . $path . "\n";
+        }
 
         if ($debug) {
             print $cmd;
