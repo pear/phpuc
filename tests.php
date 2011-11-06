@@ -77,9 +77,13 @@ if (file_exists($file_phpunit)) {
 }
 file_put_contents($file_phpunit, "PEAR PHPUnit tests for $time\n\n");
 $phpunit_tests = array();
+$start = time();
 foreach ($packages as $package) {
     $phpunit_tests[] = run_phpunit_tests($package, $file_phpunit);
 }
+$end = time();
+$minutes = ($end - $start) / 60;
+file_put_contents($file_phpunit, "\n\nFINISHED!  It took $minutes minutes.");
 
 
 if (file_exists($file_phpt)) {
@@ -87,7 +91,10 @@ if (file_exists($file_phpt)) {
 }
 file_put_contents($file_phpt, "PEAR phpt tests for $time\n\n");
 $pear_tests = array();
+$start = time();
 foreach ($packages as $package) {
     $pear_tests[] = run_pear_tests($package, $file_phpt);
 }
-
+$end = time();
+$minutes = ($end - $start) / 60;
+file_put_contents($file_phpt, "\n\nFINISHED!  It took $minutes minutes.");
