@@ -10,7 +10,7 @@ class Package {
      * @param string $source Path to packages-all checkout (http://svn.php.net/repository/pear/packages-all)
      * @param string $jenkins Path to jenkins installation (/var/lib/jenkins)
      */
-    public function __construct($package, $source, $jenkins, $pyrus = null) {
+    public function __construct($package, $source, $jenkins, $pyrus) {
         $this->package = $package;
         $this->source = $source;
         $this->jenkins = $jenkins;
