@@ -20,13 +20,24 @@ $ sudo ln -s packages-all/unit-test-results /var/www/html/pear_www/pear.php.net/
 $ crontab -e
 2  *  *   *   *     /path/to/phpuc/run-tests.sh
 
+
+# This is old stuff, right???
 sudo apt-get install sun-java6-jdk ant git-core
 ln -s /usr/bin/java /bin/java
-
-# Jenkins
-apt-get install jenkins
-
 # visit http://38.108.46.133:8080/cruisecontrol/
+
+
+# Install Jenkins, if not already on your box.
+# Example for Debian / Ubuntu:
+$ wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key \
+    | sudo apt-key add -
+
+$ sudo vim /etc/apt/sources.list
+deb http://pkg.jenkins-ci.org/debian binary/
+
+$ sudo apt-get update
+$ sudo apt-get install jenkins
+
 
 # Stop it
 /etc/init.d/jenkins stop
