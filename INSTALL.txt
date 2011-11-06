@@ -39,6 +39,16 @@ $ sudo apt-get update
 $ sudo apt-get install jenkins
 
 
+http://<your host>:8080/
+Mange Jenkins | Manage Plugins | Advanced
+Click the "Check now" button on the bottom right corner of page
+When that says it is done, click "Go back to update center"
+Click the "Available" tab
+Check the box for "Clover PHP Plugin"
+Click the "Install" button at the bottom of the page
+Check the restart Jenkins box
+
+
 # Stop it
 $ sudo /etc/init.d/jenkins stop
 
