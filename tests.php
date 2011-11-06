@@ -95,7 +95,7 @@ foreach ($packages as $package) {
     $phpunit_tests[] = run_phpunit_tests($package, $file_phpunit);
 }
 $end = time();
-$minutes = ($end - $start) / 60;
+$minutes = round(($end - $start) / 60, 2);
 file_put_contents($file_phpunit, "\n\nFINISHED!  It took $minutes minutes.", FILE_APPEND);
 
 
@@ -109,5 +109,5 @@ foreach ($packages as $package) {
     $pear_tests[] = run_pear_tests($package, $file_phpt);
 }
 $end = time();
-$minutes = ($end - $start) / 60;
+$minutes = round(($end - $start) / 60, 2);
 file_put_contents($file_phpt, "\n\nFINISHED!  It took $minutes minutes.", FILE_APPEND);
