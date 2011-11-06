@@ -71,20 +71,21 @@ if (basename(dirname(__FILE__)) == 'packages-all') {
     $packages = collect_package_directories($dir);
 }
 
+
 if (file_exists($file_phpunit)) {
     unlink($file_phpunit);
     file_put_contents($file_phpunit, "PEAR PHPUnit tests for $time\n\n");
 }
-if (file_exists($file_phpt)) {
-    unlink($file_phpt);
-    file_put_contents($file_phpt, "PEAR phpt tests for $time\n\n");
-}
-
 $phpunit_tests = array();
 foreach ($packages as $package) {
     $phpunit_tests[] = run_phpunit_tests($package, $file_phpunit);
 }
 
+
+if (file_exists($file_phpt)) {
+    unlink($file_phpt);
+    file_put_contents($file_phpt, "PEAR phpt tests for $time\n\n");
+}
 $pear_tests = array();
 foreach ($packages as $package) {
     $pear_tests[] = run_pear_tests($package, $file_phpt);
