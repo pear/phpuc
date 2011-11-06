@@ -1,5 +1,8 @@
 # Installing jenkins & unit test tools on test.pear.php.net
 
+# Ensure you have ant, git
+sudo apt-get install ant git-core subversion
+
 # Old test runner
 # Checkout relevant code, copy files to the correct spots
 $ git clone git://github.com/pear/phpuc.git
@@ -19,13 +22,6 @@ $ sudo ln -s packages-all/unit-test-results /var/www/html/pear_www/pear.php.net/
 # Crontab:
 $ crontab -e
 2  *  *   *   *     /path/to/phpuc/run-tests.sh
-
-
-# This is old stuff, right???
-sudo apt-get install sun-java6-jdk ant git-core
-ln -s /usr/bin/java /bin/java
-# visit http://38.108.46.133:8080/cruisecontrol/
-
 
 # Install Jenkins, if not already on your box.
 # Example for Debian / Ubuntu:
@@ -64,7 +60,3 @@ $ sudo php generate-all.php packages-all /var/lib/jenkins pyrus.phar
 $ sudo php generate-all.php github-pear-all /var/lib/jenkins pyrus.phar
 
 $ sudo /etc/init.d/jenkins restart
-
-
-# Make sure you have PFM installed
-pear install PEAR_PackageFileManager
