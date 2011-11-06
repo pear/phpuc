@@ -11,34 +11,161 @@ class GenerateApplication {
         $this->strategy = $strategy;
     }
 
-    function generate_project(Package $p) {
+    function generate_project_svn(Package $p) {
         ob_start();
         ?>
-<project name="<?php print $p->package; ?>" buildafterfailed="false">
-    <plugin name="svn" classname="net.sourceforge.cruisecontrol.sourcecontrols.SVN" /> 
-    <modificationset quietperiod="600">
-        <svn localWorkingCopy="<?php print $p->source; ?>/<?php print $p->package; ?>"/>
-    </modificationset> 
-
-    <schedule interval="120">
-        <ant anthome="apache-ant-1.7.0" buildfile="projects/${project.name}/build.xml"/>
-    </schedule>
-
-    <log dir="logs/${project.name}">
-        <merge dir="projects/${project.name}/build/logs/"/>
-    </log> 
-
-    <publishers>
-        <?php if (extension_loaded('xdebug')) { ?>
-            <artifactspublisher dir="projects/${project.name}/build/coverage" dest="artifacts/${project.name}" subdirectory="coverage"/>
-        <?php } ?>
-        <?php if ($p->pyrus) { ?>
-            <artifactspublisher dir="projects/${project.name}/build/package" dest="artifacts/${project.name}" subdirectory="package"/>
-        <?php } ?>
-        <execute command="phpuc graph logs/${project.name} artifacts/${project.name}"/> 
-    </publishers> 
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty>
+      <projectUrl>http://github.com/pear/Log/</projectUrl>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="hudson.scm.SubversionSCM">
+    <locations>
+      <hudson.scm.SubversionSCM_-ModuleLocation>
+        <remote>http://svn.php.net/repository/pear/packages/<?php print $p->package; ?>/trunk</remote>
+        <local>.</local>
+      </hudson.scm.SubversionSCM_-ModuleLocation>
+    </locations>
+    <excludedRegions></excludedRegions>
+    <includedRegions></includedRegions>
+    <excludedUsers></excludedUsers>
+    <excludedRevprop></excludedRevprop>
+    <excludedCommitMessages></excludedCommitMessages>
+    <workspaceUpdater class="hudson.scm.subversion.UpdateUpdater"/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector">
+    <hudson.triggers.TimerTrigger>
+      <spec>@weekly</spec>
+    </hudson.triggers.TimerTrigger>
+    <hudson.triggers.SCMTrigger>
+      <spec></spec>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>phpunit --coverage-html build/coverage/ --coverage-clover build/logs/clover.xml --log-junit build/logs/junit.xml tests/</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <org.jenkinsci.plugins.cloverphp.CloverPublisher>
+      <publishHtmlReport>true</publishHtmlReport>
+      <reportDir>build/coverage</reportDir>
+      <xmlLocation>build/logs/clover.xml</xmlLocation>
+      <disableArchiving>false</disableArchiving>
+      <healthyTarget>
+        <methodCoverage>70</methodCoverage>
+        <statementCoverage>80</statementCoverage>
+      </healthyTarget>
+      <unhealthyTarget/>
+      <failingTarget/>
+    </org.jenkinsci.plugins.cloverphp.CloverPublisher>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>build/logs/junit.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+  </publishers>
+  <buildWrappers/>
 </project>
-         <?php
+<?php
+         return ob_get_clean();
+    }
+
+    function generate_project_git(Package $p) {
+        ob_start();
+        ?>
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty>
+      <projectUrl>http://github.com/pear/<?php print $p->package; ?>/</projectUrl>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin</name>
+        <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+        <url>git://github.com/pear/<?php print $p->package; ?>.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <recursiveSubmodules>false</recursiveSubmodules>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <authorOrCommitter>false</authorOrCommitter>
+    <clean>false</clean>
+    <wipeOutWorkspace>false</wipeOutWorkspace>
+    <pruneBranches>false</pruneBranches>
+    <remotePoll>false</remotePoll>
+    <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+    <gitTool>Default</gitTool>
+    <submoduleCfg class="list"/>
+    <relativeTargetDir></relativeTargetDir>
+    <excludedRegions></excludedRegions>
+    <excludedUsers></excludedUsers>
+    <gitConfigName></gitConfigName>
+    <gitConfigEmail></gitConfigEmail>
+    <skipTag>false</skipTag>
+    <scmName></scmName>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector">
+    <hudson.triggers.TimerTrigger>
+      <spec>@weekly</spec>
+    </hudson.triggers.TimerTrigger>
+    <com.cloudbees.jenkins.GitHubPushTrigger>
+      <spec></spec>
+    </com.cloudbees.jenkins.GitHubPushTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>phpunit --coverage-html build/coverage/ --coverage-clover build/logs/clover.xml --log-junit build/logs/junit.xml tests/</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <org.jenkinsci.plugins.cloverphp.CloverPublisher>
+      <publishHtmlReport>true</publishHtmlReport>
+      <reportDir>build/coverage</reportDir>
+      <xmlLocation>build/logs/clover.xml</xmlLocation>
+      <disableArchiving>false</disableArchiving>
+      <healthyTarget>
+        <methodCoverage>70</methodCoverage>
+        <statementCoverage>80</statementCoverage>
+      </healthyTarget>
+      <unhealthyTarget/>
+      <failingTarget/>
+    </org.jenkinsci.plugins.cloverphp.CloverPublisher>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>build/logs/junit.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+  </publishers>
+  <buildWrappers/>
+</project>
+<?php
          return ob_get_clean();
     }
 
@@ -46,23 +173,17 @@ class GenerateApplication {
         if (!file_exists($p->cruisecontrol)) {
             throw new Exception("Doesnt exist: " . $p->cruisecontrol);
         }
-        if (!file_exists($p->cruisecontrol . '/projects/')) {
-            throw new Exception("Doesnt exist: " . $p->cruisecontrol . "/projects");
+        if (!file_exists($p->cruisecontrol . '/jobs/')) {
+            throw new Exception("Doesnt exist: " . $p->cruisecontrol . "/jobs");
         }
 
-        if (!is_writable($p->cruisecontrol . '/projects/')) {
-            throw new Exception("Not writable: " . $p->cruisecontrol . "/projects");
+        if (!is_writable($p->cruisecontrol . '/jobs/')) {
+            throw new Exception("Not writable: " . $p->cruisecontrol . "/jobs");
         }
 
         // Required directories
         $paths = array();
-        $paths[] = $p->cruisecontrol . '/projects/' . $p->package;
-        $paths[] = $p->cruisecontrol . '/projects/' . $p->package . '/build';
-        $paths[] = $p->cruisecontrol . '/projects/' . $p->package . '/build/logs';
-        $paths[] = $p->cruisecontrol . '/projects/' . $p->package . '/build/coverage';
-        $paths[] = $p->cruisecontrol . '/projects/' . $p->package . '/build/package';
-        $paths[] = $p->cruisecontrol . '/projects/' . $p->package . '/build/graph';
-        $paths[] = $p->cruisecontrol . '/projects/' . $p->package . '/logs';
+        $paths[] = $p->cruisecontrol . '/jobs/' . $p->package;
 
         foreach ($paths as $path) {
             if (!file_exists($path)) {
@@ -121,7 +242,7 @@ class GenerateApplication {
             $build->loadXML($this->strategy->build($p));
 
             $project = new DOMDocument();
-            $project->loadXML($this->generate_project($p));
+            $project->loadXML($this->generate_project_git($p));
 
             $this->install_project($p, $build, $project);
 
