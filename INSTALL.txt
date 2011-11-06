@@ -7,14 +7,17 @@ $ cd phpuc
 $ svn co https://svn.php.net/repository/pear/packages-all packages-all
 $ svn co https://svn.php.net/repository/pear2/packages-all pear2-packages-all
 $ php checkout-github.php pear
-$ chmod -R 777 packages-all/unit-test-results
+$ cp unit-test-results/* packages-all/unit-test-results
+$ chmod 755 packages-all/unit-test-results
+$ chmod 644 packages-all/unit-test-results/*
 $ sudo pear install phpunit/phpcpd
 
 # Add a symlink from pearweb to your local folder
 # TODO Rethink?
-$ ln -s /var/www/html/pear_www/pear.php.net/public_html/unit-test-results packages-all/unit-test-results
+$ sudo ln -s packages-all/unit-test-results /var/www/html/pear_www/pear.php.net/public_html/unit-test-results
 
 # Crontab:
+$ crontab -e
 2  *  *   *   *     /path/to/phpuc/run-tests.sh
 
 sudo apt-get install sun-java6-jdk ant git-core
