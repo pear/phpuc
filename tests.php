@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * Runs the phpt and PHPUnit tests for all PEAR packages in the
+ * svn.php.net repository
+ *
+ * NOTE:  the source code of this script is managed in a GitHub repository:
+ * https://github.com/pear/phpuc/
+ *
+ * @author Daniel O'Connor <clockwerx@php.net>
+ * @author Daniel Convissor <danielc@php.net>
+ */
+
+/**
+ *
+ */
 function collect_package_directories(RecursiveDirectoryIterator $dir) {
     $dirs = array();
     foreach ($dir as $file) {
