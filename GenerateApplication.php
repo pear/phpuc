@@ -12,8 +12,7 @@ class GenerateApplication {
     }
 
     function generate_project_svn(Package $p) {
-        ob_start();
-        ?>
+        return <<<GPS_END
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
@@ -22,7 +21,7 @@ class GenerateApplication {
   <scm class="hudson.scm.SubversionSCM">
     <locations>
       <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>http://svn.php.net/repository/pear/packages/<?php print $p->package; ?>/trunk</remote>
+        <remote>https://svn.php.net/repository/pear/packages/$p->package/trunk</remote>
         <local>.</local>
       </hudson.scm.SubversionSCM_-ModuleLocation>
     </locations>
@@ -72,13 +71,11 @@ class GenerateApplication {
   </publishers>
   <buildWrappers/>
 </project>
-<?php
-         return ob_get_clean();
+GPS_END;
     }
 
     function generate_project_git(Package $p) {
-        ob_start();
-        ?>
+        return <<<GPG_END
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
@@ -86,7 +83,7 @@ class GenerateApplication {
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.coravy.hudson.plugins.github.GithubProjectProperty>
-      <projectUrl>http://github.com/pear/<?php print $p->package; ?>/</projectUrl>
+      <projectUrl>https://github.com/pear/$p->package/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM">
@@ -95,7 +92,7 @@ class GenerateApplication {
       <hudson.plugins.git.UserRemoteConfig>
         <name>origin</name>
         <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
-        <url>git://github.com/pear/<?php print $p->package; ?>.git</url>
+        <url>git://github.com/pear/$p->package.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -160,8 +157,7 @@ class GenerateApplication {
   </publishers>
   <buildWrappers/>
 </project>
-<?php
-         return ob_get_clean();
+GPG_END;
     }
 
     public function create_project(Package $p) {

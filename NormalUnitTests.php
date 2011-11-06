@@ -2,8 +2,8 @@
 class NormalUnitTests {
     public function build(Package $p) {
         ob_start();
+        echo '<?xml version="1.0" encoding="UTF-8"?>';
         ?>
-<?xml version="1.0" encoding="UTF-8"?>
 <project name="<?php print $p->package; ?>" basedir="<?php print $p->source; ?>/<?php print $p->package; ?>" default="build">
     <target name="php-codesniffer">
         <exec executable="phpcs" dir="${basedir}" output="<?php print $p->jenkins; ?>/projects/<?php print $p->package; ?>/build/logs/checkstyle.xml">
