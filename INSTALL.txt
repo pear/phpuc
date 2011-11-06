@@ -1,4 +1,4 @@
-# Installing cruisecontrol & unit test tools on test.pear.php.net
+# Installing jenkins & unit test tools on test.pear.php.net
 
 # Old test runner
 # Checkout relevant code, copy files to the correct spots
@@ -6,6 +6,7 @@ $ cd ~/
 $ svn co http://svn.php.net/repository/pear/ci/phpuc/trunk phpuc
 $ svn co http://svn.php.net/repository/pear/packages-all packages-all
 $ svn co http://svn.php.net/repository/pear2/packages-all pear2-packages-all
+$ php phpuc/checkout-github.php pear
 $ cp phpuc/unit-test-results packages-all/unit-test-results
 $ cp phpuc/run-tests.sh .
 $ cp phpuc/migrate.php .
@@ -15,48 +16,35 @@ $ chmod -R 777 packages-all/unit-test-results
 $ sudo pear install phpunit/phpcpd
 
 # Add a symlink from pearweb to your local folder
+# TODO Rethink?
 $ ln -s /var/www/html/pear_www/pear.php.net/public_html/unit-test-results ~/packages-all/unit-test-results
 
 # Crontab:
 2  *  *   *   *     ./run-tests.sh
 
-
-# Cruise control - refer to http://blueparabola.com/blog/installing-phpundercontrol-debian-etch if this isn't working for you
 sudo apt-get install sun-java6-jdk ant git-core
 ln -s /usr/bin/java /bin/java
 
-# Cruise control 2.8.3
-wget "http://downloads.sourceforge.net/project/cruisecontrol/CruiseControl/2.8.3/cruisecontrol-bin-2.8.3.zip?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcruisecontrol%2Ffiles%2FCruiseControl%2F2.8.3%2F&ts=1281930924&mirror=internode"
-unzip cruisecontrol-bin-2.8.3.zip
-ln -s cruisecontrol-bin-2.8.3 cruisecontrol
-
-# PHPUC - http://phpundercontrol.org/documentation/installation.html
-git clone git://github.com/phpundercontrol/phpUnderControl.git
-phpUnderControl/bin/phpuc.php install ~/cruisecontrol
-
-# Test you've got cruisecontrol working
-cd ~/cruisecontrol
-./cruisecontrol.sh
+# Jenkins
+apt-get install jenkins
 
 # visit http://38.108.46.133:8080/cruisecontrol/
 
 # Stop it
-pkill java
+/etc/init.d/jenkins stop
 
 # setup a specific project
 cd ~/phpuc
-php generate-project.php Net_IPv6 ~/packages-all ~/cruisecontrol 
-
-# and test it builds
-cd ~/cruisecontrol/projects/Net_IPv6
-ant
+# SVN
+php generate-project.php Net_IPv6 ~/packages-all /var/lib/jenkins 
+# GIT
+php generate-project.php Log ~/github-pear-all /var/lib/jenkins
 
 # setup all phpunit compatable projects!
-php generate-all.php ~/packages-all ~/cruisecontrol ~/pyrus.phar
+php generate-all.php ~/packages-all /var/lib/jenkins ~/pyrus.phar
+php generate-all.php ~/github-pear-all /var/lib/jenkins ~/pyrus.phar
 
-# Fire up cruisecontrol
-cd ~/cruisecontrol
-./cruisecontrol.sh
+/etc/init.d/jenkins restart
 
 # Make sure you have PFM installed
 pear install PEAR_PackageFileManager
