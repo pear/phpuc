@@ -59,6 +59,11 @@ if (!file_exists($output_dir)) {
     }
 }
 
+$file_phpunit = $output_dir . 'phpunit_results.txt';
+$file_phpt = $output_dir . 'phpt_results.txt';
+$time = date(DATE_ATOM);
+
+
 $dir = new RecursiveDirectoryIterator(dirname(__FILE__));
 if (basename(dirname(__FILE__)) == 'packages-all') {
     $packages = collect_package_all_directories($dir);
@@ -66,25 +71,22 @@ if (basename(dirname(__FILE__)) == 'packages-all') {
     $packages = collect_package_directories($dir);
 }
 
-if (file_exists($output_dir . 'phpunit_results.txt')) {
-    unlink($output_dir . 'phpunit_results.txt');
-
-    file_put_contents($output_dir . 'phpunit_results.txt', "Unit tests for " . date(DATE_ATOM) . "\n\n");
+if (file_exists($file_phpunit)) {
+    unlink($file_phpunit);
+    file_put_contents($file_phpunit, "PEAR PHPUnit tests for $time\n\n");
 }
-if (file_exists($output_dir . 'phpt_results.txt')) {
-    unlink($output_dir . 'phpt_results.txt');
-
-    file_put_contents($output_dir . 'phpt_results.txt', "Unit tests for " . date(DATE_ATOM) . "\n\n");
-
+if (file_exists($file_phpt)) {
+    unlink($file_phpt);
+    file_put_contents($file_phpt, "PEAR phpt tests for $time\n\n");
 }
 
 $phpunit_tests = array();
 foreach ($packages as $package) {
-    $phpunit_tests[] = run_phpunit_tests($package, $output_dir . 'phpunit_results.txt');
+    $phpunit_tests[] = run_phpunit_tests($package, $file_phpunit);
 }
 
 $pear_tests = array();
 foreach ($packages as $package) {
-    $pear_tests[] = run_pear_tests($package, $output_dir . 'phpt_results.txt');
+    $pear_tests[] = run_pear_tests($package, $file_phpt);
 }
 
