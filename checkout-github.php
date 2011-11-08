@@ -19,14 +19,14 @@ foreach ($result as $data) {
 
         if (file_exists($path)) {
             echo $item->name . ": PULLING\n";
-            $cmd = "cd " . $path . " && git pull && cd " . getcwd() . "\n";
+            $cmd = "cd " . $path . " && git pull && cd " . getcwd();
         } else  {
             echo $item->name . ": CLONING\n";
-            $cmd = "git clone git://github.com/" . $organisation . "/" . $item->name . ".git " . $path . "\n";
+            $cmd = "git clone git://github.com/" . $organisation . "/" . $item->name . ".git " . $path;
         }
 
         if ($debug) {
-            print $cmd;
+            print "$cmd\n";
         } else {
             exec($cmd);
         }
