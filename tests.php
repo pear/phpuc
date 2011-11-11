@@ -88,7 +88,7 @@ if (is_dir($packages_all_dir)) {
 if (file_exists($file_phpunit)) {
     unlink($file_phpunit);
 }
-file_put_contents($file_phpunit, "PEAR PHPUnit tests for $time\n\n");
+file_put_contents($file_phpunit, "PEAR PHPUnit tests for $time\nThe run is complete when this file's last line says 'FINISHED.'\n\n");
 $phpunit_tests = array();
 $start = time();
 foreach ($packages as $package) {
@@ -102,7 +102,7 @@ file_put_contents($file_phpunit, "\n\nFINISHED!  It took $minutes minutes.", FIL
 if (file_exists($file_phpt)) {
     unlink($file_phpt);
 }
-file_put_contents($file_phpt, "PEAR phpt tests for $time\n\n");
+file_put_contents($file_phpt, "PEAR phpt tests for $time\nThe run is complete when this file's last line says 'FINISHED.'\n\n");
 $pear_tests = array();
 $start = time();
 foreach ($packages as $package) {
