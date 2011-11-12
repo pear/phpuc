@@ -40,9 +40,9 @@ function run_phpunit_tests($path, $output_path) {
     $test_dir = $path . '/tests/AllTests.php';
 
     if (file_exists($test_dir)) {
-        $cmd = 'cd ' . $path;
+        $cmd = 'cd "' . $path . '"';
         $cmd .= ' && echo "php '. $test_dir . '" >> ' . $output_path;
-        $cmd .= ' && php ' . $test_dir . ' >> ' . $output_path;
+        $cmd .= ' && php "' . $test_dir . '" >> ' . $output_path;
         exec($cmd);
     }
 }
@@ -50,9 +50,9 @@ function run_phpunit_tests($path, $output_path) {
 function run_pear_tests($path, $output_path) {
     $test_dir = $path . '/tests/';
 
-    $cmd = 'cd ' . $path;
+    $cmd = 'cd "' . $path . '"';
     $cmd .= ' && echo "pear run-tests -r ' . $test_dir . '" >> ' . $output_path;
-    $cmd .= ' && pear run-tests -r ' . $test_dir . ' >> ' .  $output_path;
+    $cmd .= ' && pear run-tests -r "' . $test_dir . '" >> ' .  $output_path;
     exec($cmd);
 }
 
