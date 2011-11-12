@@ -24,6 +24,7 @@ function collect_package_directories(RecursiveDirectoryIterator $dir) {
             }
         }
     }
+    sort($dirs);
     return $dirs;
 }
 
@@ -31,12 +32,10 @@ function collect_package_all_directories(RecursiveDirectoryIterator $dir) {
     $dirs = array();
     foreach ($dir as $file) {
         if (is_dir($file)) {
-            $trunk_dir = $file;
-            if (file_exists($trunk_dir)) {
-                $dirs[] = $trunk_dir;
-            }
+            $dirs[] = $file->getPathName();
         }
     }
+    sort($dirs);
     return $dirs;
 }
 
