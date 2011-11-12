@@ -14,6 +14,8 @@
 /**
  *
  */
+define('PEAR_PHPUC_ERROR_REPORTING', E_ALL & ~E_DEPRECATED & ~E_STRICT);
+
 function collect_package_directories(RecursiveDirectoryIterator $dir) {
     $dirs = array();
     foreach ($dir as $file) {
@@ -51,8 +53,8 @@ function run_pear_tests($path, $output_path) {
     $test_dir = $path . '/tests/';
 
     $cmd = 'cd "' . $path . '"';
-    $cmd .= ' && echo "pear run-tests -r ' . $test_dir . '" >> ' . $output_path;
-    $cmd .= ' && pear run-tests -r "' . $test_dir . '" >> ' .  $output_path;
+    $cmd .= ' && echo "pear run-tests -i \"-d error_reporting=' . PEAR_PHPUC_ERROR_REPORTING . '\" -r ' . $test_dir . '" >> ' . $output_path;
+    $cmd .= ' && pear run-tests -i "-d error_reporting=' . PEAR_PHPUC_ERROR_REPORTING . '" -r "' . $test_dir . '" >> ' .  $output_path;
     exec($cmd);
 }
 
