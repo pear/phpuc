@@ -1,4 +1,4 @@
-#/bin/sh
+#! /bin/sh
 
 # Ensure the test results home page is up to date
 cp unit-test-results/index.html packages-all/unit-test-results
