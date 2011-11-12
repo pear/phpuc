@@ -17,11 +17,8 @@
 function collect_package_directories(RecursiveDirectoryIterator $dir) {
     $dirs = array();
     foreach ($dir as $file) {
-        if (is_dir($file)) {
-            $trunk_dir = $file . "/trunk";
-            if (file_exists($trunk_dir)) {
-                $dirs[] = $trunk_dir;
-            }
+        if (is_dir($file . "/trunk/tests")) {
+            $dirs[] = $file->getPathName();
         }
     }
     sort($dirs);
@@ -31,7 +28,7 @@ function collect_package_directories(RecursiveDirectoryIterator $dir) {
 function collect_package_all_directories(RecursiveDirectoryIterator $dir) {
     $dirs = array();
     foreach ($dir as $file) {
-        if (is_dir($file)) {
+        if (is_dir($file . "/tests")) {
             $dirs[] = $file->getPathName();
         }
     }
@@ -53,12 +50,10 @@ function run_phpunit_tests($path, $output_path) {
 function run_pear_tests($path, $output_path) {
     $test_dir = $path . '/tests/';
 
-    if (file_exists($test_dir)) {
-        $cmd = 'cd ' . $path;
-        $cmd .= ' && echo "pear run-tests -r ' . $test_dir . '" >> ' . $output_path;
-        $cmd .= ' && pear run-tests -r ' . $test_dir . ' >> ' .  $output_path;
-        exec($cmd);
-    }
+    $cmd = 'cd ' . $path;
+    $cmd .= ' && echo "pear run-tests -r ' . $test_dir . '" >> ' . $output_path;
+    $cmd .= ' && pear run-tests -r ' . $test_dir . ' >> ' .  $output_path;
+    exec($cmd);
 }
 
 
