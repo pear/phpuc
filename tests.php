@@ -11,10 +11,16 @@
  * @author Daniel Convissor <danielc@php.net>
  */
 
+if (defined('E_DEPRECATED')) {
+    $level = E_ALL & ~E_DEPRECATED & ~E_STRICT;
+} else {
+    $level = E_ALL & ~E_STRICT;
+}
+
 /**
- *
+ * All w/o strict or deprecated: 5.4 = 22527, 5.3 = 22527, 5.2 = 6143
  */
-define('PEAR_PHPUC_ERROR_REPORTING', E_ALL & ~E_DEPRECATED & ~E_STRICT);
+define('PEAR_PHPUC_ERROR_REPORTING', $level);
 
 function collect_package_directories(RecursiveDirectoryIterator $dir) {
     $dirs = array();
