@@ -49,8 +49,12 @@ function run_phpunit_tests($path, $output_path) {
 
     if (file_exists($test_dir)) {
         $cmd = 'cd "' . $path . '"';
-        $cmd .= ' && echo "php '. $test_dir . '" >> ' . $output_path;
-        $cmd .= ' && php "' . $test_dir . '" >> ' . $output_path;
+        $cmd .= ' && echo "php -d error_reporting='
+            . PEAR_PHPUC_ERROR_REPORTING . ' \"' . $test_dir
+            . '\"" >> ' . $output_path;
+        $cmd .= ' && php -d error_reporting='
+            . PEAR_PHPUC_ERROR_REPORTING . ' "' . $test_dir
+            . '" >> ' . $output_path;
         exec($cmd);
     }
 }
@@ -59,8 +63,13 @@ function run_pear_tests($path, $output_path) {
     $test_dir = $path . '/tests/';
 
     $cmd = 'cd "' . $path . '"';
-    $cmd .= ' && echo "pear run-tests -i \"-d error_reporting=' . PEAR_PHPUC_ERROR_REPORTING . '\" -r ' . $test_dir . '" >> ' . $output_path;
-    $cmd .= ' && pear run-tests -i "-d error_reporting=' . PEAR_PHPUC_ERROR_REPORTING . '" -r "' . $test_dir . '" >> ' .  $output_path;
+    $cmd .= ' && echo "pear run-tests -i \"-d error_reporting='
+        . PEAR_PHPUC_ERROR_REPORTING . '\" -r \"' . $test_dir
+        . '\"" >> ' . $output_path;
+    $cmd .= ' && pear run-tests -i "-d error_reporting='
+        . PEAR_PHPUC_ERROR_REPORTING . '" -r "' . $test_dir
+        . '" >> ' .  $output_path;
+
     exec($cmd);
 }
 
