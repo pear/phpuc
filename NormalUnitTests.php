@@ -26,14 +26,14 @@ class NormalUnitTests {
     <target name="phpunit">
         <exec executable="phpunit" dir="${basedir}" failonerror="on">
             <?php if (extension_loaded('xdebug')) { ?>
-                <arg line="-d error_reporting='E_ALL &amp; ~E_STRICT'
+                <arg line="-d error_reporting='E_ALL &amp; ~E_STRICT &amp; ~E_DEPRECATED'
                              --log-junit build/logs/junit.xml 
                             <?php print $this->getBootstrap($p); ?>
                             --coverage-clover build/logs/clover.xml
                             --coverage-html build/coverage 
                             <?php print $this->getTestPath($p); ?>" /> 
             <?php } else { ?>
-                <arg line="-d error_reporting='E_ALL &amp; ~E_STRICT'
+                <arg line="-d error_reporting='E_ALL &amp; ~E_STRICT &amp; ~E_DEPRECATED'
                           --log-junit build/logs/junit.xml <?php print $this->getBootstrap($p); ?>
                             <?php print $this->getTestPath($p); ?>" /> 
             <?php } ?>
@@ -44,7 +44,7 @@ class NormalUnitTests {
     <target name="package">
         <!-- Todo: refactor this, not everyone lives in /home/clockwerx -->
         <exec executable="php" dir="${basedir}">
-            <arg line="-d error_reporting='E_ALL &amp; ~E_STRICT' /home/clockwerx/phpuc/make-package.php ${basedir}" />
+            <arg line="-d error_reporting='E_ALL &amp; ~E_STRICT &amp; ~E_DEPRECATED' /home/clockwerx/phpuc/make-package.php ${basedir}" />
         </exec>
 
         <exec executable="php" dir="${basedir}"  failonerror="on">
